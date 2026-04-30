@@ -7,19 +7,22 @@ dotenv.config()
 //middleware to verify that the user is authenticated before getting access to rhe images
 export const isAuthenticated= async (req,res,next)=>{
     try{
-        const token = req.cookies
+       const token = req.cookies?.token; 
 
         if(!token){
             return res.status(401).json({
                 status:false,
-                message:'you are not authenticated'
+                message:'you are not authenticated please login to access this resource'
             })
 
 
         }
         const decode =jwt.verify(token,process.env.JWT_SECRET)
+        
+        console.log(`cookies ${req.cookies.token}`)
+        console.log(`decoded token ${decode}`)
 
-        const user= await User.findById(decode.id)
+        const user= await User.findById(decode.userId)
         if(!user){
             return res.status(401).json({
                 status:false,
@@ -33,7 +36,7 @@ export const isAuthenticated= async (req,res,next)=>{
     catch(error){
         res.status(500).json({
             status:false,
-            message:error.message
+            message:` middle ware error ${error.message}`
         })
     }
 }

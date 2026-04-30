@@ -7,6 +7,7 @@ import connectCloudinary from "./config/cloudinary.js";
 import connectDB from "./config/db.js";
 import multer from "multer";
 import Cookies from "cookies";
+import cookieParser from "cookie-parser";
 
 // accesing the environment variables from the .env file
 dotenv.config()
@@ -17,7 +18,7 @@ connectDB()
 
 //initilizing the express app and using the cors middleware to allow cross-origin requests
 const app= express()
-app.use(Cookies.express())
+app.use(cookieParser())
 
 //defining the port number for the server to listen on
 const port = process.env.PORT

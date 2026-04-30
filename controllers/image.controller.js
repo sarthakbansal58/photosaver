@@ -87,9 +87,9 @@ export const deleteImage=async (req,res)=>{
 
 export const getAllImages=async (req,res)=>{
     try{
-         
+
         // getting all the images from mongodb 
-        const images= await Image.find({user_id:req.user._id})
+        const images= await Image.find()
         if(!images){
             return res.status(404).json({
                 status:false,
