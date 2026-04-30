@@ -1,4 +1,4 @@
-import exoress from "express";
+import express from "express";
 import cors from "cors"
 import dotenv from "dotenv"
 import userRoutes from './routes/auth.routes.js'
@@ -28,6 +28,10 @@ app.use(cors())
 //defining the routes for the authentication and image upload and retrieval
 app.use('/api/auth',userRoutes)
 app.use('/api/image',imgrouter)
+
+app.get('/',(req,res)=>{
+    res.status(200).send("welcome to the photo saver app")
+})
 
 //starting the server and listening on the defined port number
 app.listen(port,()=>{
